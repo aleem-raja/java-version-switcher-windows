@@ -54,9 +54,9 @@ if ($SwitchTo) {
     $TargetJDK = $Versions[$SwitchTo]
     Write-Host "Switching to Java $SwitchTo..." -ForegroundColor Green
 
-    # Remove existing symlink (requires Admin privileges)
+    # Remove existing symlink safely without prompting or traversing target folders
     if (Test-Path $SymlinkPath) {
-        Remove-Item $SymlinkPath -Force
+        (Get-Item $SymlinkPath).Delete()
     }
 
     # Create new Symlink
